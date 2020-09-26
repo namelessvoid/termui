@@ -25,9 +25,15 @@ type Canvas struct {
 }
 
 func NewCanvas() *Canvas {
-	return &Canvas{
-		CellMap: make(map[image.Point]Cell),
-	}
+	c := &Canvas{}
+	// Initialize CellMap
+	c.Clear()
+	return c
+}
+
+// Clear resets all cells in this canvas
+func (self *Canvas) Clear() {
+	self.CellMap = make(map[image.Point]Cell)
 }
 
 func (self *Canvas) SetPoint(p image.Point, color Color) {

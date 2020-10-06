@@ -4,6 +4,15 @@
 
 termui is a cross-platform and fully-customizable terminal dashboard and widget library built on top of [termbox-go](https://github.com/nsf/termbox-go). It is inspired by [blessed-contrib](https://github.com/yaronn/blessed-contrib) and [tui-rs](https://github.com/fdehau/tui-rs) and written purely in Go.
 
+## About this fork
+
+This fork was created to extend existing termui by some features:
+
+- Added sprite class which allows to store/load sprites to/from disk
+- Added sprite rendering for braille canvas
+- Fixed braill canvas' border and title rendering
+- Added rune canvas which can draw sprites via `rune`s
+
 ## Features
 
 - Several premade widgets for common use cases

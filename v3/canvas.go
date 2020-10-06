@@ -26,6 +26,16 @@ func (self *Canvas) SetLine(p0, p1 image.Point, color Color) {
 	self.Canvas.SetLine(p0, p1, drawille.Color(color))
 }
 
+func (self *Canvas) SetSprite(position image.Point, sprite *Sprite) {
+	for _, point := range sprite.Points {
+		if point.X < 0 || point.Y < 0 {
+			continue
+		}
+
+		self.SetPoint(point.Add(position), ColorWhite)
+	}
+}
+
 func (self *Canvas) Draw(buf *Buffer) {
 	for point, cell := range self.Canvas.GetCells() {
 		if point.In(self.Rectangle) {

@@ -37,6 +37,8 @@ func (self *Canvas) SetSprite(position image.Point, sprite *Sprite) {
 }
 
 func (self *Canvas) Draw(buf *Buffer) {
+	self.Block.Draw(buf)
+
 	for point, cell := range self.Canvas.GetCells() {
 		if point.In(self.Rectangle) {
 			convertedCell := Cell{
@@ -47,7 +49,7 @@ func (self *Canvas) Draw(buf *Buffer) {
 					ModifierClear,
 				},
 			}
-			buf.SetCell(convertedCell, point)
+			buf.SetCell(convertedCell, point.Add(self.Inner.Min))
 		}
 	}
 }

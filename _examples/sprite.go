@@ -5,6 +5,7 @@ import (
 	"log"
 
 	ui "github.com/gizak/termui/v3"
+	"github.com/gizak/termui/v3/widgets"
 )
 
 func main() {
@@ -15,7 +16,12 @@ func main() {
 	defer ui.Close()
 
 	canvas := ui.NewCanvas()
-	canvas.SetRect(0, 0, 50, 50)
+	canvas.SetRect(0, 0, 50, 20)
+	canvas.Title = "Braille canvas with sprite"
+
+	runeCanvas := widgets.NewRuneCanvas()
+	runeCanvas.SetRect(0, 20, 50, 40)
+	runeCanvas.Title = "Rune canvas with sprite"
 
 	sprite := ui.NewSprite()
 	sprite.Points = []image.Point{
@@ -31,7 +37,9 @@ func main() {
 	}
 
 	canvas.SetSprite(image.Pt(2, 2), sprite)
+	runeCanvas.SetSprite(image.Pt(2, 2), sprite, '#', ui.NewStyle(ui.ColorGreen))
 	ui.Render(canvas)
+	ui.Render(runeCanvas)
 
 	uiEvents := ui.PollEvents()
 	for {

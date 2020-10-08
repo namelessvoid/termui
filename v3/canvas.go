@@ -28,11 +28,12 @@ func (self *Canvas) SetLine(p0, p1 image.Point, color Color) {
 
 func (self *Canvas) SetSprite(position image.Point, sprite *Sprite) {
 	for _, point := range sprite.Points {
-		if point.X < 0 || point.Y < 0 {
+		transformedPoint := point.Add(position)
+		if transformedPoint.X < 0 || transformedPoint.Y < 0 {
 			continue
 		}
 
-		self.SetPoint(point.Add(position), ColorWhite)
+		self.SetPoint(transformedPoint, ColorWhite)
 	}
 }
 

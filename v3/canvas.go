@@ -26,14 +26,14 @@ func (self *Canvas) SetLine(p0, p1 image.Point, color Color) {
 	self.Canvas.SetLine(p0, p1, drawille.Color(color))
 }
 
-func (self *Canvas) SetSprite(position image.Point, sprite *Sprite) {
+func (self *Canvas) SetSprite(position image.Point, sprite *Sprite, color Color) {
 	for _, point := range sprite.Points {
 		transformedPoint := point.Add(position)
 		if transformedPoint.X < 0 || transformedPoint.Y < 0 {
 			continue
 		}
 
-		self.SetPoint(transformedPoint, ColorWhite)
+		self.SetPoint(transformedPoint, color)
 	}
 }
 

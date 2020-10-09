@@ -36,7 +36,7 @@ func main() {
 		image.Pt(0, 4),
 	}
 
-	canvas.SetSprite(image.Pt(2, 2), sprite)
+	canvas.SetSprite(image.Pt(-1, -2), sprite, ui.ColorGreen)
 	runeCanvas.SetSprite(image.Pt(2, 2), sprite, '#', ui.NewStyle(ui.ColorGreen))
 	ui.Render(canvas)
 	ui.Render(runeCanvas)

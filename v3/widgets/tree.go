@@ -164,6 +164,10 @@ func (self *Tree) Draw(buf *Buffer) {
 // There is no need to set self.topRow, as this will be set automatically when drawn,
 // since if the selected item is off screen then the topRow variable will change accordingly.
 func (self *Tree) ScrollAmount(amount int) {
+	if len(self.rows) == 0 {
+		return
+	}
+
 	if len(self.rows)-int(self.SelectedRow) <= amount {
 		self.SelectedRow = len(self.rows) - 1
 	} else if int(self.SelectedRow)+amount < 0 {

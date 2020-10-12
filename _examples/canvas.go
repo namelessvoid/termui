@@ -16,7 +16,7 @@ func main() {
 	defer ui.Close()
 
 	c := ui.NewCanvas()
-	c.SetRect(0, 0, 50, 50)
+	c.SetRect(3, 3, 30, 30)
 	c.SetLine(image.Pt(0, 0), image.Pt(10, 20), ui.ColorWhite)
 
 	ui.Render(c)

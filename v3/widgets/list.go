@@ -62,7 +62,7 @@ func (self *List) Draw(buf *Buffer) {
 	// adjusts view into widget
 	for selectedRowStart+selectedRowHeight-1 >= self.Inner.Dy()+topRowStart {
 		self.topRow++
-		topRowStart = sum(rowHeights[0:self.topRow])
+		topRowStart = sum(rowHeights[0 : self.topRow+1])
 	}
 
 	if self.SelectedRow < self.topRow {

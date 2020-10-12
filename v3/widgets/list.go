@@ -31,6 +31,14 @@ func NewList() *List {
 }
 
 func (self *List) Draw(buf *Buffer) {
+	sum := func(ints []int) int {
+		s := 0
+		for _, i := range ints {
+			s += i
+		}
+		return s
+	}
+
 	self.Block.Draw(buf)
 
 	if self.Rows == nil || len(self.Rows) == 0 {
@@ -39,10 +47,25 @@ func (self *List) Draw(buf *Buffer) {
 
 	point := self.Inner.Min
 
+	rowHeights := make([]int, len(self.Rows))
+	for i, row := range self.Rows {
+		if self.WrapText {
+			rowHeights[i] = len(row)/self.Inner.Dx() + 1
+		} else {
+			rowHeights[i] = 1
+		}
+	}
+	selectedRowHeight := rowHeights[self.SelectedRow]
+	selectedRowStart := sum(rowHeights[0:self.SelectedRow])
+	topRowStart := sum(rowHeights[0:self.topRow])
+
 	// adjusts view into widget
-	if self.SelectedRow >= self.Inner.Dy()+self.topRow {
-		self.topRow = self.SelectedRow - self.Inner.Dy() + 1
-	} else if self.SelectedRow < self.topRow {
+	for selectedRowStart+selectedRowHeight-1 >= self.Inner.Dy()+topRowStart {
+		self.topRow++
+		topRowStart = sum(rowHeights[0:self.topRow])
+	}
+
+	if self.SelectedRow < self.topRow {
 		self.topRow = self.SelectedRow
 	}
 

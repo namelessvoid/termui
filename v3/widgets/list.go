@@ -33,6 +33,10 @@ func NewList() *List {
 func (self *List) Draw(buf *Buffer) {
 	self.Block.Draw(buf)
 
+	if self.Rows == nil || len(self.Rows) == 0 {
+		return
+	}
+
 	point := self.Inner.Min
 
 	// adjusts view into widget

@@ -115,6 +115,10 @@ func (self *Tree) Draw(buf *Buffer) {
 	self.Block.Draw(buf)
 	point := self.Inner.Min
 
+	if self.SelectedRow < 0 {
+		self.SelectedRow = 0
+	}
+
 	// adjusts view into widget
 	if self.SelectedRow >= self.Inner.Dy()+self.topRow {
 		self.topRow = self.SelectedRow - self.Inner.Dy() + 1
@@ -178,9 +182,10 @@ func (self *Tree) ScrollAmount(amount int) {
 }
 
 func (self *Tree) SelectedNode() *TreeNode {
-	if len(self.rows) == 0 {
+	if self.SelectedRow < 0 || self.SelectedRow >= len(self.rows) {
 		return nil
 	}
+
 	return self.rows[self.SelectedRow]
 }
 
@@ -235,7 +240,12 @@ func (self *Tree) Expand() {
 }
 
 func (self *Tree) ToggleExpand() {
-	node := self.rows[self.SelectedRow]
+	node := self.SelectedNode()
+
+	if node == nil {
+		return
+	}
+
 	if len(node.Nodes) > 0 {
 		node.Expanded = !node.Expanded
 	}
